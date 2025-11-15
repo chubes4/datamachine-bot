@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env
+
+# Runtime data
+data/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build artifacts
+build/
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
