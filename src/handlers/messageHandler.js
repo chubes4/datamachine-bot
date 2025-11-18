@@ -7,21 +7,40 @@ async function handleMessage(message, client) {
 	const isDM = message.channel.type === 1;
 	const isMention = !isDM && message.mentions.has(client.user);
 
+	console.log('[Message Handler] Received message:', {
+		isDM,
+		isMention,
+		channelType: message.channel.type,
+		hasContent: !!message.content,
+		contentLength: message.content?.length || 0,
+		authorBot: message.author.bot,
+		guildId: message.guildId || 'dm'
+	});
+
 	if (!isDM && !isMention) {
+		console.log('[Message Handler] Ignoring: not DM and not mention');
 		return;
 	}
 
 	if (message.author.bot) {
+		console.log('[Message Handler] Ignoring: message from bot');
 		return;
 	}
 
 	let content = message.content;
 
 	if (isMention) {
+		const beforeStrip = content;
 		content = content.replace(new RegExp(`<@!?${client.user.id}>`), '').trim();
+		console.log('[Message Handler] Mention detected:', {
+			beforeStrip,
+			afterStrip: content,
+			botUserId: client.user.id
+		});
 	}
 
 	if (!content) {
+		console.log('[Message Handler] Ignoring: empty content after processing');
 		return;
 	}
 

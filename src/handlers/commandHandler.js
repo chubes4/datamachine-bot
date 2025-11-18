@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { MessageFlags } = require('discord.js');
 
 const commands = new Map();
 
@@ -43,7 +44,7 @@ async function handleInteraction(interaction) {
 		if (interaction.deferred || interaction.replied) {
 			await interaction.editReply(errorMessage);
 		} else {
-			await interaction.reply({ content: errorMessage, ephemeral: true });
+			await interaction.reply({ content: errorMessage, flags: MessageFlags.Ephemeral });
 		}
 	}
 }

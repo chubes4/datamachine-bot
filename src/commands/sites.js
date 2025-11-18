@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, MessageFlags } = require('discord.js');
 const { readJSON, writeJSON } = require('../utils/jsonFileManager');
 const { encrypt } = require('../services/encryption');
 const { validateSiteConnection } = require('../services/datamachine');
@@ -93,7 +93,7 @@ async function handleAutocomplete(interaction) {
 }
 
 async function handleAdd(interaction) {
-	await interaction.deferReply({ ephemeral: true });
+	await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
 	const url = interaction.options.getString('url').replace(/\/$/, '');
 	const username = interaction.options.getString('username');
@@ -144,7 +144,7 @@ async function handleList(interaction) {
 	const defaultSite = getSiteForUser(guildId);
 
 	if (Object.keys(sites).length === 0) {
-		await interaction.reply({ content: 'No sites configured yet. Use `/sites add` to add one.', ephemeral: true });
+		await interaction.reply({ content: 'No sites configured yet. Use `/sites add` to add one.', flags: MessageFlags.Ephemeral });
 		return;
 	}
 
@@ -157,7 +157,7 @@ async function handleList(interaction) {
 		response += `  Added: ${new Date(config.addedAt).toLocaleDateString()}\n\n`;
 	}
 
-	await interaction.reply({ content: response, ephemeral: true });
+	await interaction.reply({ content: response, flags: MessageFlags.Ephemeral });
 }
 
 async function handleSetDefault(interaction) {
@@ -165,20 +165,20 @@ async function handleSetDefault(interaction) {
 	const sites = readJSON('wordpress_sites.json', {});
 
 	if (!sites[url]) {
-		await interaction.reply({ content: `Site ${url} not found. Use \`/sites list\` to see available sites.`, ephemeral: true });
+		await interaction.reply({ content: `Site ${url} not found. Use \`/sites list\` to see available sites.`, flags: MessageFlags.Ephemeral });
 		return;
 	}
 
 	const guildId = interaction.guildId;
 
 	if (!guildId) {
-		await interaction.reply({ content: 'Default sites can only be set in a server, not in DMs.', ephemeral: true });
+		await interaction.reply({ content: 'Default sites can only be set in a server, not in DMs.', flags: MessageFlags.Ephemeral });
 		return;
 	}
 
 	setDefaultSite(guildId, url);
 
-	await interaction.reply({ content: `Default site for this server set to ${url}.`, ephemeral: true });
+	await interaction.reply({ content: `Default site for this server set to ${url}.`, flags: MessageFlags.Ephemeral });
 }
 
 async function handleRemove(interaction) {
@@ -186,14 +186,14 @@ async function handleRemove(interaction) {
 	const sites = readJSON('wordpress_sites.json', {});
 
 	if (!sites[url]) {
-		await interaction.reply({ content: `Site ${url} not found.`, ephemeral: true });
+		await interaction.reply({ content: `Site ${url} not found.`, flags: MessageFlags.Ephemeral });
 		return;
 	}
 
 	delete sites[url];
 	writeJSON('wordpress_sites.json', sites);
 
-	await interaction.reply({ content: `Site ${url} removed successfully.`, ephemeral: true });
+	await interaction.reply({ content: `Site ${url} removed successfully.`, flags: MessageFlags.Ephemeral });
 }
 
 module.exports = { data, execute };

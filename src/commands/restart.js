@@ -8,7 +8,7 @@ const data = new SlashCommandBuilder()
 	.setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
 
 async function execute(interaction) {
-	const response = await interaction.reply({ content: 'Restarting bot...', fetchReply: true });
+	const response = await interaction.reply({ content: 'Restarting bot...' }).then(msg => msg.fetch());
 
 	const restartInfo = {
 		channelId: interaction.channelId,

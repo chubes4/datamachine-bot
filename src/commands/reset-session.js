@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, MessageFlags } = require('discord.js');
 const { clearUserSession, getSiteForUser } = require('../services/sessionManager');
 const { readJSON } = require('../utils/jsonFileManager');
 
@@ -36,7 +36,7 @@ async function execute(interaction) {
 			? `Site ${siteOverride} not found. Use \`/sites list\` to see available sites.`
 			: 'No WordPress sites configured.';
 
-		await interaction.reply({ content: errorMsg, ephemeral: true });
+		await interaction.reply({ content: errorMsg, flags: MessageFlags.Ephemeral });
 		return;
 	}
 
@@ -45,12 +45,12 @@ async function execute(interaction) {
 	if (wasCleared) {
 		await interaction.reply({
 			content: `Session cleared for ${siteUrl}. Your next message will start a fresh conversation.`,
-			ephemeral: true
+			flags: MessageFlags.Ephemeral
 		});
 	} else {
 		await interaction.reply({
 			content: `No active session found for ${siteUrl}.`,
-			ephemeral: true
+			flags: MessageFlags.Ephemeral
 		});
 	}
 }
