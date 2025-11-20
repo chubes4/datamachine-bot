@@ -36,11 +36,11 @@ async function sendChatMessage(siteConfig, message, sessionId = null) {
 		if (response.data && response.data.success) {
 			return {
 				success: true,
-				sessionId: response.data.session_id,
-				response: response.data.response || '',
-				toolCalls: response.data.tool_calls || [],
-				conversation: response.data.conversation || [],
-				metadata: response.data.metadata || {}
+				sessionId: response.data.data.session_id,
+				response: response.data.data.response || '',
+				toolCalls: response.data.data.tool_calls || [],
+				conversation: response.data.data.conversation || [],
+				metadata: response.data.data.metadata || {}
 			};
 		} else {
 			return {
