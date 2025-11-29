@@ -30,7 +30,7 @@ async function sendChatMessage(siteConfig, message, sessionId = null) {
 				'Authorization': `Basic ${auth}`,
 				'Content-Type': 'application/json'
 			},
-			timeout: 60000
+			timeout: 300000 // 5 minutes - complex multi-turn conversations can take time
 		});
 
 		if (response.data && response.data.success) {
@@ -40,7 +40,9 @@ async function sendChatMessage(siteConfig, message, sessionId = null) {
 				response: response.data.data.response || '',
 				toolCalls: response.data.data.tool_calls || [],
 				conversation: response.data.data.conversation || [],
-				metadata: response.data.data.metadata || {}
+				metadata: response.data.data.metadata || {},
+				completed: response.data.data.completed ?? true,
+				warning: response.data.data.warning || null
 			};
 		} else {
 			return {

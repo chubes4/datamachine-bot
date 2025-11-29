@@ -96,6 +96,10 @@ async function handleMessage(message, client) {
 				await message.channel.send(messageParts[i]);
 			}
 		}
+
+		if (result.warning) {
+			await message.channel.send(`⚠️ ${result.warning}`);
+		}
 	} catch (error) {
 		clearInterval(typingInterval);
 		console.error('Error handling message:', error);
