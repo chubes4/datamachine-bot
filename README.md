@@ -99,7 +99,7 @@ How do I create a pipeline for Twitter posts?
 ## Requirements
 
 - Node.js 16+
-- WordPress site with Data Machine plugin v0.2.3+
+- WordPress site with Data Machine plugin v0.2.0+
 - Discord bot with Message Content intent enabled
 
 ## Production Deployment

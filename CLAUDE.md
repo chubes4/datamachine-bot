@@ -50,6 +50,7 @@ Service Layer (Platform-agnostic):
 - POST requests to `/wp-json/datamachine/v1/chat`
 - WordPress Application Password authentication (Basic Auth)
 - Session continuity via `session_id` parameter
+- Compatible with Data Machine v0.2.0+ Universal Engine architecture
 - Detailed error messages for different failure modes
 
 **Session Manager** (`services/sessionManager.js`):

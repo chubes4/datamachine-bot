@@ -62,12 +62,17 @@ async function sendChatMessage(siteConfig, message, sessionId = null) {
 		let errorMessage = 'Failed to communicate with Data Machine';
 
 		if (error.response) {
-			if (error.response.status === 401) {
+			if (error.response.data && error.response.data.message) {
+				// If it's a 404 and the code is rest_no_route, use our custom message
+				if (error.response.status === 404 && error.response.data.code === 'rest_no_route') {
+					errorMessage = 'Data Machine endpoint not found. Is the plugin installed and activated?';
+				} else {
+					errorMessage = error.response.data.message;
+				}
+			} else if (error.response.status === 401) {
 				errorMessage = 'Authentication failed. Check your WordPress application password.';
 			} else if (error.response.status === 404) {
 				errorMessage = 'Data Machine endpoint not found. Is the plugin installed and activated?';
-			} else if (error.response.data && error.response.data.message) {
-				errorMessage = error.response.data.message;
 			} else {
 				errorMessage = `API error (${error.response.status}): ${error.response.statusText}`;
 			}
