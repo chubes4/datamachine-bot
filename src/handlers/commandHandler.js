@@ -23,6 +23,18 @@ function loadCommands() {
 }
 
 async function handleInteraction(interaction) {
+	if (interaction.isAutocomplete()) {
+		const command = commands.get(interaction.commandName);
+		if (command) {
+			try {
+				await command.execute(interaction);
+			} catch (error) {
+				console.error(`Autocomplete error for ${interaction.commandName}:`, error);
+			}
+		}
+		return;
+	}
+
 	if (!interaction.isChatInputCommand()) {
 		return;
 	}

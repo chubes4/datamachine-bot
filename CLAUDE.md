@@ -6,7 +6,7 @@ Developer documentation for Data Machine Bot - Discord integration for Data Mach
 
 Data Machine Bot provides a natural chat interface to Data Machine's AI-powered WordPress automation workflows through Discord. The bot supports direct messages, server mentions, and slash commands with persistent conversation sessions.
 
-**Version**: 0.1.1
+**Version**: 0.1.2
 
 **Architecture Philosophy**: Platform-agnostic service layer with platform-specific interaction handlers. Currently implements Discord; designed for easy Slack integration.
 
