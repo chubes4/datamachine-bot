@@ -99,7 +99,7 @@ How do I create a pipeline for Twitter posts?
 ## Requirements
 
 - Node.js 16+
-- WordPress site with Data Machine plugin v0.5.8+
+- WordPress site with Data Machine plugin v0.8.15+
 - Discord bot with Message Content intent enabled
 
 ## Production Deployment
@@ -146,7 +146,7 @@ Ready for future Slack integration with shared service layer.
 
 ## Development
 
-See `AGENTS.md` for developer documentation and architecture details.
+See `CLAUDE.md` for developer documentation and architecture details.
 
 ## License
 
